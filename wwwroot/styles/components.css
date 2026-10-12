@@ -1,0 +1,480 @@
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-block: 18px;
+  border-bottom: var(--outline);
+}
+
+.site-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+
+/* Task sheet */
+.task-sheet {
+  background: var(--color-bright-snow);
+  border: var(--outline);
+  border-radius: var(--radius);
+  box-shadow: var(--paper-shadow);
+  padding: 24px 26px 18px;
+}
+
+.sheet-heading {
+  margin: 0;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sheet-subheading {
+  margin: 4px 0 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  color: var(--color-shadow-grey);
+}
+
+.sheet-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.task-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto 40px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 4px;
+  border-bottom: var(--outline-thin);
+}
+
+.task-row:last-child {
+  border-bottom: none;
+}
+
+.task-row:hover {
+  background: var(--color-platinum);
+}
+
+.task-row.is-completed .task-title {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.task-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.task-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.task-note {
+  font-size: 0.85rem;
+}
+
+.task-note-view {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-note-text {
+  margin: 0;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.task-note-toggle {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  padding: 2px;
+  opacity: 0.6;
+}
+
+.task-note-toggle:hover,
+.task-note-toggle:focus-visible {
+  opacity: 1;
+}
+
+.task-note-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.task-note-input {
+  width: 100%;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  background: var(--color-bright-snow);
+  resize: vertical;
+}
+
+.task-note-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.task-note-btn {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  background: var(--color-platinum);
+  padding: 2px 10px;
+}
+
+.task-note-btn--quiet {
+  background: transparent;
+}
+
+.task-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.category-tag {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: var(--color-platinum);
+  border: var(--outline-thin);
+  border-radius: 999px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+.task-checkbox {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.task-checkbox-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.task-checkbox-box-rect {
+  transition: fill 150ms ease;
+}
+
+.task-checkbox-mark {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+  transition: stroke-dashoffset 150ms ease 40ms;
+}
+
+.task-checkbox.is-completed .task-checkbox-box-rect {
+  fill: var(--color-shadow-grey);
+}
+
+.task-checkbox.is-completed .task-checkbox-mark {
+  stroke-dashoffset: 0;
+  stroke: var(--color-bright-snow);
+}
+
+.delete-task-button {
+  width: 40px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.delete-task-button:hover,
+.delete-task-button:focus-visible {
+  opacity: 1;
+}
+
+.delete-task-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.sheet-empty {
+  margin: 18px 0 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+}
+
+.sheet-note {
+  margin: 18px 0 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* Utility cards */
+.paper-card {
+  background: var(--color-bright-snow);
+  border: var(--outline);
+  border-radius: var(--radius);
+  box-shadow: var(--paper-shadow-sm);
+  padding: 16px 16px 18px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  padding: 0;
+}
+
+.icon-button:hover {
+  background: var(--color-platinum);
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Calendar */
+.calendar-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.calendar-weekday {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.calendar-day {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+.calendar-day:hover {
+  background: var(--color-platinum);
+}
+
+.calendar-day.is-selected {
+  background: var(--color-shadow-grey);
+  color: var(--color-bright-snow);
+}
+
+.calendar-task-mark {
+  position: absolute;
+  bottom: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-shadow-grey);
+}
+
+.calendar-day.is-selected .calendar-task-mark {
+  background: var(--color-bright-snow);
+}
+
+/* Quick add */
+.quick-add-form {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-add-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  padding: 8px 10px;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  background: var(--color-bright-snow);
+}
+
+.quick-add-button {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  background: var(--color-platinum);
+  padding: 8px 14px;
+}
+
+.quick-add-button:hover {
+  background: var(--color-bright-snow);
+}
+
+/* Categories */
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.category-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  background: none;
+  border: var(--outline-thin);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+}
+
+.category-button:hover {
+  background: var(--color-platinum);
+}
+
+.category-button.is-active {
+  background: var(--color-shadow-grey);
+  color: var(--color-bright-snow);
+}
+
+.category-button-count {
+  background: var(--color-platinum);
+  color: var(--color-shadow-grey);
+  border-radius: 999px;
+  min-width: 22px;
+  text-align: center;
+  padding: 0 6px;
+  font-size: 0.75rem;
+}
+
+.category-button.is-active .category-button-count {
+  background: var(--color-bright-snow);
+}
+
+.category-reset {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  padding: 2px;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: 30px;
+  padding-block: 20px 40px;
+}
+
+.footer-rule {
+  border-top: 2px dashed var(--color-shadow-grey);
+  margin-bottom: 10px;
+}
+
+.footer-text {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+}
+
+/* Mobile adjustments: keep long titles wrapping and controls reachable. */
+@media (max-width: 760px) {
+  .task-row {
+    grid-template-columns: 44px minmax(0, 1fr) 40px;
+    grid-template-areas:
+      "check main delete"
+      "check tags delete";
+    row-gap: 4px;
+  }
+
+  .task-checkbox {
+    grid-area: check;
+    align-self: start;
+  }
+
+  .task-main {
+    grid-area: main;
+  }
+
+  .task-tags {
+    grid-area: tags;
+    justify-content: flex-start;
+  }
+
+  .delete-task-button {
+    grid-area: delete;
+    align-self: start;
+  }
+
+  .sheet-heading {
+    font-size: 1.3rem;
+  }
+
+  .app-header {
+    gap: 12px;
+  }
+}

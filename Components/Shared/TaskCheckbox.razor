@@ -1,0 +1,20 @@
+<button type="button" class="task-checkbox @(Completed ? "is-completed" : null)"
+        aria-pressed="@(Completed ? "true" : "false")"
+        aria-label="@(AriaLabel ?? (Completed ? "Mark task as not completed" : "Mark task as completed"))"
+        @onclick="OnToggle">
+    <svg class="task-checkbox-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect class="task-checkbox-box-rect" x="3" y="3" width="18" height="18" fill="none"
+              stroke="var(--color-shadow-grey)" stroke-width="3" />
+        <path class="task-checkbox-mark" d="M7 12.5l3.5 3.5L17 8"
+              fill="none" stroke="var(--color-shadow-grey)" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+</button>
+
+@code {
+    [Parameter] public bool Completed { get; set; }
+
+    [Parameter] public EventCallback OnToggle { get; set; }
+
+    [Parameter] public string? AriaLabel { get; set; }
+}

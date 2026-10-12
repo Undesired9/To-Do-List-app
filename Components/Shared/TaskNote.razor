@@ -1,0 +1,62 @@
+@if (_editing)
+{
+    <div class="task-note-edit">
+        <label class="visually-hidden" for="@_inputId">Note for this task</label>
+        <textarea id="@_inputId" class="task-note-input" rows="2"
+                  placeholder="Add a note..." @bind="_draft"></textarea>
+        <div class="task-note-actions">
+            <button type="button" class="task-note-btn" @onclick="SaveAsync">Save</button>
+            <button type="button" class="task-note-btn task-note-btn--quiet" @onclick="Cancel">Cancel</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="task-note-view">
+        @if (HasNote)
+        {
+            <p class="task-note-text">@Description</p>
+        }
+        <button type="button" class="task-note-toggle"
+                aria-label="@ToggleLabel" title="@ToggleLabel"
+                @onclick="BeginEdit">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"
+                      fill="none" stroke="var(--color-shadow-grey)" stroke-width="2" stroke-linejoin="round" />
+                <path d="M9 12h6M9 16h4" fill="none" stroke="var(--color-shadow-grey)" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
+    </div>
+}
+
+@code {
+    [Parameter] public Guid TaskId { get; set; }
+
+    [Parameter] public string? Description { get; set; }
+
+    [Parameter] public EventCallback<(Guid TaskId, string? Description)> OnSave { get; set; }
+
+    private bool _editing;
+    private string _draft = string.Empty;
+
+    private string _inputId => $"note-{TaskId:N}";
+
+    private bool HasNote => !string.IsNullOrWhiteSpace(Description);
+
+    private string ToggleLabel => HasNote ? "Edit note" : "Add note";
+
+    private void BeginEdit()
+    {
+        _draft = Description ?? string.Empty;
+        _editing = true;
+    }
+
+    private void Cancel() => _editing = false;
+
+    private async Task SaveAsync()
+    {
+        var value = string.IsNullOrWhiteSpace(_draft) ? null : _draft.Trim();
+        await OnSave.InvokeAsync((TaskId, value));
+        _editing = false;
+    }
+}

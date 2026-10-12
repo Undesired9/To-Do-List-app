@@ -13,3 +13,8 @@ obj/
 
 # Superpowers SDD scratch workspace
 .superpowers/
+
+# Local planning and design notes
+frontend.md
+plan.md
+change.md

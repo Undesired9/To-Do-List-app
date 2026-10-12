@@ -1,0 +1,74 @@
+@implements IDisposable
+@inject TaskService Tasks
+
+<section id="categories-card" class="paper-card" aria-labelledby="categories-heading">
+    <div class="card-header">
+        <h2 id="categories-heading" class="card-title">CATEGORIES</h2>
+        @if (Tasks.ActiveCategory is not null)
+        {
+            <button type="button" class="category-reset" @onclick="() => Tasks.ClearFilter()">Clear</button>
+        }
+    </div>
+
+    <ul class="category-list">
+        @foreach (var category in Categories)
+        {
+            var active = Tasks.ActiveCategory == category;
+            _counts.TryGetValue(category, out var count);
+            <li>
+                <button type="button"
+                        class="category-button @(active ? "is-active" : null)"
+                        aria-pressed="@(active ? "true" : "false")"
+                        @onclick="() => ToggleFilter(category)">
+                    <span class="category-button-label">@category.ToString().ToUpperInvariant()</span>
+                    <span class="category-button-count">@count</span>
+                </button>
+            </li>
+        }
+    </ul>
+</section>
+
+@code {
+    private static readonly TaskCategory[] Categories =
+    {
+        TaskCategory.Work,
+        TaskCategory.Personal,
+        TaskCategory.Health,
+        TaskCategory.Shopping,
+        TaskCategory.Fitness
+    };
+
+    private IReadOnlyDictionary<TaskCategory, int> _counts = new Dictionary<TaskCategory, int>();
+
+    protected override async Task OnInitializedAsync() => await RefreshAsync();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Tasks.OnChange += HandleChange;
+        }
+    }
+
+    private void HandleChange() => _ = RefreshAsync();
+
+    private async Task RefreshAsync()
+    {
+        _counts = await Tasks.GetCategoryCountsAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleFilter(TaskCategory category)
+    {
+        if (Tasks.ActiveCategory == category)
+        {
+            Tasks.ClearFilter();
+        }
+        else
+        {
+            Tasks.SetCategoryFilter(category);
+        }
+    }
+
+    public void Dispose() => Tasks.OnChange -= HandleChange;
+}

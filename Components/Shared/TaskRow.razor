@@ -1,0 +1,35 @@
+<li class="task-row @(Task.Completed ? "is-completed" : null)">
+    <TaskCheckbox Completed="Task.Completed"
+                  AriaLabel="@ToggleLabel"
+                  OnToggle="() => OnToggle.InvokeAsync()" />
+
+    <div class="task-main">
+        <span class="task-title">@Task.Title</span>
+        <TaskNote TaskId="Task.Id" Description="@Task.Description" OnSave="OnDescriptionSaved" />
+    </div>
+
+    <div class="task-tags">
+        @foreach (var tag in Task.Categories)
+        {
+            <CategoryTag Category="tag.Category" />
+        }
+    </div>
+
+    <DeleteTaskButton TaskId="Task.Id"
+                      OnDelete="() => OnDelete.InvokeAsync()" />
+</li>
+
+@code {
+    [Parameter] public TaskItem Task { get; set; } = new();
+
+    [Parameter] public EventCallback OnToggle { get; set; }
+
+    [Parameter] public EventCallback OnDelete { get; set; }
+
+    [Parameter] public EventCallback<(Guid TaskId, string? Description)> OnDescriptionSaved { get; set; }
+
+    private string ToggleLabel =>
+        Task.Completed
+            ? $"Mark task not completed: {Task.Title}"
+            : $"Mark task completed: {Task.Title}";
+}

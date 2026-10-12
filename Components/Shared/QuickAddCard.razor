@@ -1,0 +1,39 @@
+@inject TaskService Tasks
+
+<section class="paper-card quick-add" aria-labelledby="quick-add-heading">
+    <h2 id="quick-add-heading" class="card-title">QUICK ADD</h2>
+    <form class="quick-add-form" @onsubmit="SubmitAsync" @onsubmit:preventDefault>
+        <label class="visually-hidden" for="quick-add-input">Task title</label>
+        <input id="quick-add-input" class="quick-add-input" type="text"
+               placeholder="Write a task..." autocomplete="off"
+               @bind="_title" @bind:event="oninput" />
+        <button type="submit" class="quick-add-button">Add</button>
+    </form>
+    <p class="visually-hidden" role="status" aria-live="polite">@_announcement</p>
+</section>
+
+@code {
+    private string _title = string.Empty;
+    private string _announcement = string.Empty;
+
+    /// <summary>Trims the title; returns null when it is blank so the caller rejects the submission.</summary>
+    public static string? NormalizeTitle(string? raw)
+    {
+        var title = raw?.Trim();
+        return string.IsNullOrEmpty(title) ? null : title;
+    }
+
+    private async Task SubmitAsync()
+    {
+        var title = NormalizeTitle(_title);
+        if (title is null)
+        {
+            _announcement = "Enter a task before adding.";
+            return;
+        }
+
+        await Tasks.AddTaskAsync(title);
+        _title = string.Empty;
+        _announcement = $"Added task: {title}";
+    }
+}

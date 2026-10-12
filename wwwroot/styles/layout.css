@@ -1,0 +1,28 @@
+.page-shell {
+  width: min(var(--container), calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 730px) minmax(260px, 300px);
+  gap: var(--gap);
+  align-items: start;
+  margin-block: 0 40px;
+}
+
+.utility-column {
+  display: grid;
+  gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .main-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .utility-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
